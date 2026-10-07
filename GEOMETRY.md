@@ -11,6 +11,10 @@ geometry and shear tested here did not demonstrate a nonlinear-memory advantage.
 These are separate results. The reconstruction works in both fixed and moving
 geometry, so its success cannot be credited specifically to moving vortices.
 
+The later [doubled-response and quadratic-reader follow-up](READER.md) keeps
+these results intact. It uses fresh histories at the frozen operating points;
+the additional reader coordinates miss the new even-target improvement gate.
+
 ![Geometry and shear gate](results/geometry_summary.svg)
 
 ## 1. A fair vortex–matrix–neuron comparison

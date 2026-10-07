@@ -9,6 +9,11 @@ The strongest finding is a distinction: **a response update can have high matrix
 The subsequent [geometry and shear gate](GEOMETRY.md) tests state-conditioned
 response regeneration in a designed oscillator–vortex hybrid. It also derives
 an exact distinction between retained phase and changed response magnitude.
+
+The [doubled-response and reader follow-up](READER.md) derives the full smoothed
+complex tangent, verifies its unitary equivalence to the real response, and tests
+quadratic current-state observables on fresh held-out histories. Its primary
+reader-improvement gate fails at the frozen operating points.
 Its task-memory gates fail; its local state-code reconstruction transfers
 better than a fixed operator dictionary. Those results supplement the original
 point-vortex and normal-form checks below.

@@ -22,6 +22,8 @@ This repository contains **derivations, reproducible numerical research probes a
 - [New geometry and shear results](GEOMETRY.md)
 - [Protocol fixed before measuring outcomes](GEOMETRY_PROTOCOL.md)
 - [New runnable gate](research/check_geometry.py) and [complete receipt](results/geometry_checks.json)
+- [Doubled response and quadratic-reader follow-up](READER.md)
+- [Reader protocol](READER_PROTOCOL.md), [runner](research/check_reader.py) and [receipt](results/reader_checks.json)
 
 ![VMN mathematical checks](results/math_summary.svg)
 
@@ -54,6 +56,26 @@ these distinctions. **24/24 new numerical checks and 16 focused unit tests
 pass**, alongside the original 63 consistency checks.
 
 ![Geometry and shear results](results/geometry_summary.svg)
+
+## Adding coordinates: response and reader follow-up
+
+The full smoothed, nonlinear response has an exact doubled complex form on
+`(δz, δz̄)`. A normalized unitary lift preserves its spectrum, singular values
+and ranks; the largest eigenvalue mismatch across 48 sampled Jacobians is
+**7.8 × 10⁻¹⁵**. Smoothing and oscillator nonlinearity contribute both ordinary
+and conjugate coupling, so a pure-vortex onset formula needs extra conditions.
+
+A second experiment gives every model the same quadratic current-state
+observables. The recurrent state stays at 16 real coordinates; readout features
+increase from 16 to 40. Model operating points are frozen, and fresh histories
+are held out. The primary even-target reader gate **fails**: mean order-2 R² gain
+**0.00885**, wins **2/4**, expanded-reader mean **-0.00828**. The added features
+remove a symmetry obstruction, but do not establish useful aggregate nonlinear
+memory. The expanded linear control also has weak short-lag quadratic signal.
+
+The [follow-up note](READER.md) contains the exact coefficients, ideal-limit
+qualification, costs and full results. **13/13 additional numerical checks and
+29 total unit tests pass.** The earlier geometry receipts remain unchanged.
 
 ## What the mathematics established
 
@@ -100,6 +122,7 @@ python -m pip install -r requirements.txt
 python -m unittest discover -s research -p 'test_*.py'
 python research/check_math.py
 python research/check_geometry.py
+python research/check_reader.py
 ```
 
 The scripts regenerate their respective JSON receipts and SVG figures, print
