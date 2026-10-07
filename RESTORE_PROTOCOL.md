@@ -34,7 +34,8 @@ layer, neural-tissue model or hardware performance claim is added.
   the rat's ±30-degree sweeps around an unknown current location.
 - Opposite: second pulse is the negative of the first electrical waveform.
 - Passive: no pulse, same elapsed time and noise. Also retain a single-pulse
-  diagnostic, labelled as having half the two-pulse energy.
+  diagnostic with half the pair energy in the fixed family; report its actual
+  energy in the balanced family. It is an unmatched-energy diagnostic.
 
 ## Two controller families and matched budgets
 
@@ -84,9 +85,10 @@ latency. Include shuffled-target local control for the primary query.
    target distance 1 and wavevector (1,0). Mirrored goals give identical pulses
    and a first-order slope 0.95–1.05, not quadratic cancellation.
 3. Fixed opposite pulses, noisy primary setting: after eight pairs, mean
-   causal phase RMS <= half that of fixed repeated pulses, with wins on >=3/4 banks.
+   causal phase RMS <= half that of fixed repeated pulses, with the halving
+   requirement also satisfied on >=3/4 banks.
 4. Radial-balanced opposite pulses: the same reduction relative to balanced
-   repeated pulses, with wins on >=3/4 banks.
+   repeated pulses, with the halving requirement also satisfied on >=3/4 banks.
 5. Useful repeated reads, separately for each opposite family: eighth-query
    error <= half the zero-answer error and <=1.25 times its first-query error;
    added mean position error <=0.005 after eight pairs; causal phase reduction
