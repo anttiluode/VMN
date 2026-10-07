@@ -14,13 +14,46 @@ $$
 
 A past event changes the current state $x$. If that changes $J$, the same later pulse has a different response. Vortices, nonlinear neural activity and oscillators give different concrete realizations of this structure.
 
-This repository currently contains **derivations and a reproducible numerical research probe**. A learned vortex layer, a cylinder-wake solver and competitive ML benchmarks remain future work.
+This repository contains **derivations, reproducible numerical research probes and a small reservoir experiment with trained affine readouts**. A learned recurrent vortex layer, a cylinder-wake solver and competitive ML benchmarks remain future work.
 
 - [Mathematical derivations, proofs and falsifiers](MATH.md)
 - [Runnable numerical checks](research/check_math.py)
 - [Machine-readable receipt](results/math_checks.json)
+- [New geometry and shear results](GEOMETRY.md)
+- [Protocol fixed before measuring outcomes](GEOMETRY_PROTOCOL.md)
+- [New runnable gate](research/check_geometry.py) and [complete receipt](results/geometry_checks.json)
 
 ![VMN mathematical checks](results/math_summary.svg)
+
+## Geometry and shear gate — 7 October 2026
+
+The new experiment compares eight planar oscillators with fixed versus moving
+vortex coupling, with shear on and off. Their state sizes, inputs and rest
+linearizations match. A trained readout predicts delayed past inputs on
+independent test trajectories; a separate probe tests response reconstruction
+at event locations excluded from dictionary training.
+
+| Result | Finding |
+|---|---|
+| Moving geometry's nonlinear-memory advantage | **Failed** the predeclared gate; mean R² gain 0.00050, wins 2/4 |
+| Shear's nonlinear-memory advantage | **Failed** in both geometries; gains 0.00390 and 0.00276 |
+| All selected models' mean nonlinear test R² | **Below zero** |
+| Unseen-site response-update reconstruction, moving geometry + shear, horizon 2 | fixed POD oracle **96.5% error**; six-number state code **5.3% error** |
+| Same six-number code, independent later probe directions | median relative probe-response update error **9.6%** |
+| Isolated shear oscillator nearer Hopf | retained phase grows **8×**, relaxed Jacobian change shrinks **8×** |
+
+The reconstruction also succeeds with fixed geometry. Its useful ingredient is
+**retaining state and regenerating the response from known equations**; the
+test does not establish that moving vortices improve task memory. The sparse
+code requires a shared baseline and model, reads the full state to encode, and
+performs a full variational ODE solve to decode. No overall storage or speed
+advantage is established.
+
+The [new note](GEOMETRY.md) derives the exact phase-kick formula and explains
+these distinctions. **24/24 new numerical checks and 16 focused unit tests
+pass**, alongside the original 63 consistency checks.
+
+![Geometry and shear results](results/geometry_summary.svg)
 
 ## What the mathematics established
 
@@ -46,7 +79,7 @@ The elementary proofs are included in [MATH.md](MATH.md). Their research novelty
 | Hopf counterexample at onset | update rank **34**, 95%-energy rank **32** |
 | Same Hopf update, shared analytic matrix dictionary | **3 coefficients**, exact reconstruction |
 
-The vortex dictionary test is an **optimistic reconstruction bound**: coefficients are obtained by projecting the true held-out operator. No coefficient predictor was trained. Its poor transfer shows that individually compact updates need not share a transferable fixed basis. A geometry-dependent decoder remains an open alternative.
+The original point-vortex dictionary test is an **optimistic reconstruction bound**: coefficients are obtained by projecting the true held-out operator. No coefficient predictor was trained. Its poor transfer shows that individually compact updates need not share a transferable fixed basis. The newer [state-code test](GEOMETRY.md) evaluates a structural decoder in a separate designed hybrid model.
 
 These are ideal point-vortex and normal-form experiments, with fixed circulations, noiseless observations and finite horizons. The median vortex effect is small but well above the derivative-check error. This does not establish task utility, persistent learning or reduced total storage.
 
@@ -64,10 +97,16 @@ Checked with Python 3.12.14 and the versions in `requirements.txt`:
 
 ```bash
 python -m pip install -r requirements.txt
+python -m unittest discover -s research -p 'test_*.py'
 python research/check_math.py
+python research/check_geometry.py
 ```
 
-The script regenerates `results/math_checks.json` and `results/math_summary.svg`, prints a concise receipt, and exits nonzero if a numerical consistency check fails. A failed research hypothesis is recorded as a finding, rather than treated as a software failure.
+The scripts regenerate their respective JSON receipts and SVG figures, print
+concise summaries, and exit nonzero if a numerical consistency check fails.
+The geometry gate performs 92 small reservoir configurations across four
+paired seeds and the separate response-transfer experiment. A failed research
+hypothesis is recorded as a finding, rather than treated as a software failure.
 
 Related work: [Kompressori](https://github.com/anttiluode/Kompressori) measures compact finite-response changes in a different nonlinear field. Its five-row local bound does not transfer to globally coupled point vortices.
 

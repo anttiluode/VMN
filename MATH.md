@@ -6,6 +6,13 @@ This note develops the vortex–matrix–neuron connection requested for VMN. Th
 
 The strongest finding is a distinction: **a response update can have high matrix rank while belonging to a small, nonlinear family of operators**. Conversely, individually low effective-rank updates can fail to share a useful codebook across locations.
 
+The subsequent [geometry and shear gate](GEOMETRY.md) tests state-conditioned
+response regeneration in a designed oscillator–vortex hybrid. It also derives
+an exact distinction between retained phase and changed response magnitude.
+Its task-memory gates fail; its local state-code reconstruction transfers
+better than a fixed operator dictionary. Those results supplement the original
+point-vortex and normal-form checks below.
+
 ## 1. The shared object: a history-conditioned response
 
 Take a smooth controlled system on a collision-free region, with fixed additive input and linear observation maps:

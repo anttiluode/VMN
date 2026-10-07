@@ -57,19 +57,19 @@ def positions(n, rng):
     return (1.5 * q + rng.uniform(-0.15, 0.15, (n, 2))).ravel()
 
 
-def vortex_velocity(q, gamma):
+def vortex_velocity(q, gamma, delta=0.0):
     q = q.reshape(-1, 2)
     r = q[:, None, :] - q[None, :, :]
-    distance2 = np.einsum("ijk,ijk->ij", r, r)
+    distance2 = np.einsum("ijk,ijk->ij", r, r) + delta**2
     np.fill_diagonal(distance2, np.inf)
     return np.sum((r @ ROT.T) * (gamma[None, :] / (2 * np.pi * distance2))[:, :, None], axis=1).ravel()
 
 
-def vortex_jacobian(q, gamma):
+def vortex_jacobian(q, gamma, delta=0.0):
     q = q.reshape(-1, 2)
     n = len(q)
     r = q[:, None, :] - q[None, :, :]
-    distance2 = np.einsum("ijk,ijk->ij", r, r)
+    distance2 = np.einsum("ijk,ijk->ij", r, r) + delta**2
     np.fill_diagonal(distance2, np.inf)
     kernel = ROT[None, None, :, :] / distance2[:, :, None, None]
     kernel -= 2 * np.einsum("ija,ijb->ijab", r @ ROT.T, r) / distance2[:, :, None, None] ** 2
