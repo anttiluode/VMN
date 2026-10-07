@@ -14,7 +14,7 @@ $$
 
 A past event changes the current state $x$. If that changes $J$, the same later pulse has a different response. Vortices, nonlinear neural activity and oscillators give different concrete realizations of this structure.
 
-This repository contains **derivations, reproducible numerical research probes and a small reservoir experiment with trained affine readouts**. A learned recurrent vortex layer, a cylinder-wake solver and competitive ML benchmarks remain future work.
+This repository contains **derivations, reproducible numerical research probes, a small reservoir experiment and a phase-memory query experiment with trained readers**. A learned recurrent vortex layer, a cylinder-wake solver and competitive ML benchmarks remain future work.
 
 - [Mathematical derivations, proofs and falsifiers](MATH.md)
 - [Runnable numerical checks](research/check_math.py)
@@ -24,8 +24,37 @@ This repository contains **derivations, reproducible numerical research probes a
 - [New runnable gate](research/check_geometry.py) and [complete receipt](results/geometry_checks.json)
 - [Doubled response and quadratic-reader follow-up](READER.md)
 - [Reader protocol](READER_PROTOCOL.md), [runner](research/check_reader.py) and [receipt](results/reader_checks.json)
+- [Single-bank ping and limited-port results](PING.md)
+- [Ping protocol](PING_PROTOCOL.md), [runner](research/check_ping.py) and [receipt](results/ping_checks.json)
 
 ![VMN mathematical checks](results/math_summary.svg)
+
+## Single-bank phase-memory queries — 7 October 2026
+
+Following Antti's entorhinal question and VMNClaude's goal-ping experiment,
+this gate tests a single noisy oscillator bank. Its listener uses measured
+outputs before and after a pulse, with future noise left in the measurement.
+A privileged shared-noise twin remains a separately labelled diagnostic.
+
+| Result, 32 complex units | Finding |
+|---|---|
+| Single-bank goal-vector query | **Pass**, error **0.0392** vs zero-answer **0.2357** |
+| Direct-phase reference | **0.0197** error; physical query misses the near-direct-access gate |
+| Four real summed output channels | **Failed**, active error **0.1949** vs passive **0.1920** and goal-only **0.1942** |
+| Query-time vortex coupling | **Failed**, error **0.0532**, worse on all four banks |
+| One-query memory disturbance | **Pass**, added mean position error **0.00161**; state still changes |
+| Four successive queries | Added position error **0.00840** |
+| Independent noise, 8 → 32 units | Direct-reference error **0.0641 → 0.0197**, with increased resources |
+| Coherent velocity bias, 32 units | Direct-reference error rises to **0.0741**; digital reference **0.0752** |
+
+The working listener measures every unit's complex output. Direct access to
+those same outputs is more accurate and cheaper in this test. Its small
+recurrent state is **512 bytes**, but its selected kNN decoder stores about
+**804 kB**. No restricted-port, energy, speed or digital-register advantage is
+demonstrated. The [note](PING.md) gives the exact pulse response, access
+contracts, six gates, resource costs and reproducibility checks.
+
+![Single-bank ping results](results/ping_summary.svg)
 
 ## Geometry and shear gate — 7 October 2026
 
