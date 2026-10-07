@@ -26,8 +26,36 @@ This repository contains **derivations, reproducible numerical research probes, 
 - [Reader protocol](READER_PROTOCOL.md), [runner](research/check_reader.py) and [receipt](results/reader_checks.json)
 - [Single-bank ping and limited-port results](PING.md)
 - [Ping protocol](PING_PROTOCOL.md), [runner](research/check_ping.py) and [receipt](results/ping_checks.json)
+- [Query and restore: counterpulses preserve repeated reads](RESTORE.md)
+- [Restoration protocol](RESTORE_PROTOCOL.md), [runner](research/check_restore.py) and [receipt](results/restore_checks.json)
 
 ![VMN mathematical checks](results/math_summary.svg)
+
+## Query and restore — 7 October 2026
+
+A second, electrically sign-reversed pulse reduces the disturbance of a
+goal query. Spatially mirrored targets do not automatically produce that
+counterpulse. This follow-up uses one noisy bank and frozen readers, with
+equal pulse energy and elapsed time among the two-pulse comparisons.
+
+| After eight reads, 32 complex units | Finding |
+|---|---|
+| Same pulse repeated | Eighth-query error **0.2283**; added position error **0.2623** |
+| Spatially mirrored goal | Query error **0.2360**; added position error **0.2998** |
+| **Sign-reversed counterpulse** | Query error **0.0434**; added position error **0.00376** |
+| Causal phase disturbance vs repeated pulses | **0.2617 vs 1.6136 radians RMS**, reduction on 4/4 banks |
+| Joint useful repeated-read gate | **Pass**, 3/4 banks; first-query error **0.0376**, zero-answer **0.2317** |
+| Counterpulse adjusted from observed radii | Similar task result; little extra benefit at tested noise |
+| Four-channel query | **Fail**, error **0.1931**, goal-only **0.1922** |
+
+Compensation costs an extra pulse. The successful listener still measures
+every unit, and its decoder still occupies about **804 kB**. This is a
+demonstration of useful repeated queries with reduced drift in a designed
+oscillator bank, not a hardware advantage or explanation of biological theta
+sweeps. The [note](RESTORE.md) gives the exact cancellation conditions,
+counterexample to automatic mirroring, costs and all predeclared gates.
+
+![Query and restoration results](results/restore_summary.svg)
 
 ## Single-bank phase-memory queries — 7 October 2026
 
